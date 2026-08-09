@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanskriti Search Engine — Sacred Knowledge Platform</title>
+  <meta name="description" content="Explore the eternal wisdom of Indian scriptures — Vedas, Upanishads, Bhagavad Gita, Ramayana, Mahabharata with AI-powered search and chat." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --saffron:        #E8710A;
+      --saffron-dark:   #B85508;
+      --saffron-light:  #FDF0E0;
+      --saffron-mid:    #F5C380;
+      --gold:           #C9922A;
+      --gold-light:     #FBF5E6;
+      --gold-mid:       #E8C56A;
+      --deep-blue:      #1A2B5F;
+      --blue-mid:       #2D4A8A;
+      --blue-light:     #E8EEF8;
+      --maroon:         #8B1A1A;
+      --cream:          #FDF8F1;
+      --cream-dark:     #F5EDD8;
+      --white:          #FFFFFF;
+      --text-dark:      #1A1A1A;
+      --text-body:      #2E2E2E;
+      --text-muted:     #6B6B6B;
+      --text-faint:     #9A9A9A;
+      --border:         #E4D5B8;
+      --border-light:   #F0E8D5;
+      --shadow-sm:      0 2px 8px rgba(26,43,95,0.08);
+      --shadow-md:      0 4px 20px rgba(26,43,95,0.12);
+      --shadow-lg:      0 8px 40px rgba(26,43,95,0.18);
+      --radius-sm:      6px;
+      --radius-md:      10px;
+      --radius-lg:      14px;
+      --radius-xl:      20px;
+      --radius-full:    9999px;
+      --transition:     0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Serif', serif;
+      background: var(--cream);
+      color: var(--text-body);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===================== UTILITY ===================== */
+    .hidden { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; }
+    input, textarea { font-family: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===================== SCROLLBAR ===================== */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--saffron-mid); border-radius: 99px; }
+
+    /* ===================== NAVBAR ===================== */
+    .navbar {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--deep-blue);
+      display: flex; align-items: center; gap: 14px;
+      padding: 0 24px; height: 58px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      cursor: pointer; flex-shrink: 0; text-decoration: none;
+    }
+    .nav-logo-symbol {
+      font-size: 26px; color: #F5C842; line-height: 1;
+      text-shadow: 0 0 12px rgba(245,200,66,0.4);
+    }
+    .nav-logo-text { display: flex; flex-direction: column; }
+    .nav-logo-title {
+      font-family: 'Cinzel', serif; color: #F5C842;
+      font-size: 16px; font-weight: 600; line-height: 1.1;
+      letter-spacing: 0.5px;
+    }
+    .nav-logo-sub {
+      font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.5);
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    }
+    .nav-search-wrap {
+      flex: 1; max-width: 480px;
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-full); padding: 0 16px; gap: 10px;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .nav-search-wrap:focus-within {
+      background: rgba(255,255,255,0.14); border-color: rgba(245,200,66,0.4);
+    }
+    .nav-search-icon { color: rgba(255,255,255,0.4); font-size: 16px; flex-shrink: 0; }
+    .nav-search-wrap input {
+      flex: 1; background: none; border: none; outline: none;
+      color: white; font-size: 14px; padding: 8px 0;
+    }
+    .nav-search-wrap input::placeholder { color: rgba(255,255,255,0.4); }
+    .nav-search-btn {
+      background: var(--saffron); color: white; border: none;
+      border-radius: var(--radius-full); padding: 5px 14px;
+      font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 500;
+      transition: background var(--transition);
+    }
+    .nav-search-btn:hover { background: var(--saffron-dark); }
+    .nav-links {
+      margin-left: auto; display: flex; align-items: center; gap: 4px;
+    }
+    .nav-link {
+      background: none; border: none; color: rgba(255,255,255,0.65);
+      padding: 7px 14px; border-radius: var(--radius-full); font-size: 13px;
+      font-family: 'Inter', sans-serif; transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.1); color: white; }
+    .nav-link.active { background: rgba(245,200,66,0.15); color: #F5C842; }
+    .nav-link-guru {
+      background: linear-gradient(135deg, var(--saffron), #C94040);
+      color: white !important; font-weight: 500;
+    }
+    .nav-link-guru:hover { opacity: 0.88; background: linear-gradient(135deg, var(--saffron), #C94040); }
+
+    /* ===================== PAGE ROUTER ===================== */
+    .page { display: none; min-height: calc(100vh - 58px); }
+    .page.active { display: block; }
+
+    /* ===================== HOME PAGE ===================== */
+    .home-hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(150deg, #0F1B3E 0%, #1A2B5F 40%, #6B1212 100%);
+      padding: 64px 24px 56px; text-align: center;
+    }
+    .home-hero::before {
+      content: 'ॐ'; position: absolute;
+      font-size: 320px; color: rgba(255,255,255,0.03);
+      top: 50%; left: 50%; transform: translate(-50%, -52%);
+      pointer-events: none; line-height: 1;
+    }
+    .home-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(245,200,66,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif; color: var(--gold-mid);
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 16px; opacity: 0.9;
+    }
+    .hero-title {
+      font-family: 'Cinzel', serif; font-size: clamp(28px, 5vw, 48px);
+      color: #F5C842; font-weight: 600; line-height: 1.15;
+      margin-bottom: 10px; position: relative; z-index: 1;
+      text-shadow: 0 2px 30px rgba(245,200,66,0.2);
+    }
+    .hero-subtitle {
+      color: rgba(255,255,255,0.75); font-size: 16px;
+      font-style: italic; margin-bottom: 6px; position: relative; z-index: 1;
+    }
+    .hero-mantra {
+      color: #FF9F40; font-size: 20px; letter-spacing: 3px;
+      margin-bottom: 36px; position: relative; z-index: 1;
+    }
+    .hero-mantra-trans {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      font-family: 'Inter', sans-serif; letter-spacing: 1px;
+      margin-top: -28px; margin-bottom: 36px;
+    }
+
+    /* Search bar */
+    .hero-search {
+      max-width: 640px; margin: 0 auto 28px;
+      background: white; border-radius: var(--radius-full);
+      display: flex; align-items: center;
+      padding: 6px 6px 6px 22px;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.1);
+      position: relative; z-index: 1;
+    }
+    .hero-search svg { flex-shrink: 0; color: #999; }
+    .hero-search input {
+      flex: 1; border: none; outline: none; font-size: 16px;
+      color: var(--text-dark); padding: 4px 14px;
+      background: transparent;
+    }
+    .hero-search input::placeholder { color: #AAA; }
+    .hero-search-btn {
+      background: var(--saffron); color: white; border: none;
+      border-radius: var(--radius-full); padding: 11px 26px;
+      font-size: 15px; font-family: 'Cinzel', serif; font-weight: 500;
+      transition: background var(--transition); white-space: nowrap;
+    }
+    .hero-search-btn:hover { background: var(--saffron-dark); }
+
+    /* Tags */
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; position: relative; z-index: 1;
+    }
+    .hero-tag {
+      background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.14); border-radius: var(--radius-full);
+      padding: 6px 16px; font-size: 13px; cursor: pointer;
+      transition: all var(--transition); font-family: 'Inter', sans-serif;
+    }
+    .hero-tag:hover {
+      background: rgba(245,200,66,0.12); border-color: rgba(245,200,66,0.4);
+      color: #F5C842;
+    }
+
+    /* Sections */
+    .home-section { padding: 40px 24px; max-width: 1140px; margin: 0 auto; }
+    .home-section-wide { padding: 36px 24px; background: var(--gold-light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .home-section-wide > .inner { max-width: 1140px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--saffron);
+      margin-bottom: 6px;
+    }
+    .section-heading {
+      font-family: 'Cinzel', serif; font-size: 22px; color: var(--deep-blue);
+      font-weight: 500; margin-bottom: 20px;
+      padding-bottom: 10px; border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    /* Category grid */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+    .cat-card {
+      background: white; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 18px 10px;
+      text-align: center; cursor: pointer;
+      transition: all var(--transition);
+    }
+    .cat-card:hover {
+      border-color: var(--saffron); background: var(--saffron-light);
+      transform: translateY(-3px); box-shadow: var(--shadow-md);
+    }
+    .cat-card-icon { font-size: 30px; margin-bottom: 8px; }
+    .cat-card-name {
+      font-family: 'Cinzel', serif; font-size: 12px;
+      color: var(--deep-blue); font-weight: 500; line-height: 1.3;
+    }
+    .cat-card-count {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      color: var(--text-faint); margin-top: 4px;
+    }
+
+    /* Featured verses */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .feat-card {
+      background: white; border: 1px solid var(--border);
+      border-left: 4px solid var(--saffron); border-radius: var(--radius-lg);
+      padding: 18px; cursor: pointer; transition: all var(--transition);
+    }
+    .feat-card:hover {
+      box-shadow: var(--shadow-md); transform: translateY(-2px);
+      border-left-color: var(--gold);
+    }
+    .feat-ref {
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+      color: var(--saffron); letter-spacing: 0.5px; margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .feat-sanskrit {
+      font-size: 17px; color: var(--deep-blue); line-height: 1.75;
+      margin-bottom: 8px;
+    }
+    .feat-trans {
+      font-size: 13px; color: var(--text-muted); font-style: italic;
+      line-height: 1.55;
+    }
+
+    /* AI Guru CTA */
+    .guru-cta-box {
+      background: linear-gradient(135deg, var(--deep-blue) 0%, var(--blue-mid) 100%);
+      border-radius: var(--radius-xl); padding: 32px;
+      display: flex; gap: 24px; align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .guru-cta-left { flex: 1; min-width: 200px; }
+    .guru-cta-icon { font-size: 42px; margin-bottom: 10px; }
+    .guru-cta-title {
+      font-family: 'Cinzel', serif; color: #F5C842; font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .guru-cta-desc {
+      color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .guru-cta-btn {
+      background: var(--saffron); color: white; border: none;
+      border-radius: var(--radius-full); padding: 11px 24px;
+      font-size: 14px; font-family: 'Cinzel', serif;
+      cursor: pointer; transition: background var(--transition);
+    }
+    .guru-cta-btn:hover { background: var(--saffron-dark); }
+    .guru-questions { display: flex; flex-direction: column; gap: 8px; min-width: 220px; }
+    .guru-q-btn {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-md); padding: 10px 14px;
+      color: rgba(255,255,255,0.85); font-size: 13px; text-align: left;
+      cursor: pointer; transition: all var(--transition);
+      font-family: 'Noto Serif', serif;
+    }
+    .guru-q-btn:hover {
+      background: rgba(245,200,66,0.12); border-color: rgba(245,200,66,0.3);
+      color: #F5C842;
+    }
+    .guru-q-arrow { float: right; opacity: 0.5; }
+
+    /* Stats strip */
+    .stats-strip {
+      display: flex; flex-wrap: wrap; gap: 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: white;
+    }
+    .stat-item {
+      flex: 1; min-width: 140px; padding: 20px 24px;
+      text-align: center; border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cinzel', serif; font-size: 26px; color: var(--saffron);
+      font-weight: 600; line-height: 1;
+    }
+    .stat-label {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: var(--text-muted); margin-top: 4px;
+    }
+
+    /* ===================== SEARCH PAGE ===================== */
+    .search-layout {
+      max-width: 900px; margin: 0 auto; padding: 24px;
+    }
+    .search-top {
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .search-meta-text {
+      font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-muted);
+    }
+    .search-meta-text strong { color: var(--text-dark); }
+    .filter-row {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+    }
+    .filter-chip {
+      background: white; border: 1px solid var(--border);
+      border-radius: var(--radius-full); padding: 6px 16px;
+      font-size: 13px; font-family: 'Inter', sans-serif;
+      color: var(--text-muted); cursor: pointer;
+      transition: all var(--transition);
+    }
+    .filter-chip:hover { border-color: var(--deep-blue); color: var(--deep-blue); }
+    .filter-chip.active {
+      background: var(--deep-blue); color: white; border-color: var(--deep-blue);
+    }
+
+    /* Result cards */
+    .result-card {
+      background: white; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 20px;
+      margin-bottom: 14px; transition: all var(--transition);
+    }
+    .result-card:hover {
+      border-color: var(--gold); box-shadow: var(--shadow-sm);
+    }
+    .result-header {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .result-badge {
+      background: var(--saffron-light); color: var(--saffron-dark);
+      border: 1px solid rgba(232,113,10,0.25); border-radius: var(--radius-full);
+      padding: 3px 12px; font-size: 11px; font-weight: 600;
+      font-family: 'Cinzel', serif; white-space: nowrap;
+    }
+    .result-chapter {
+      font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text-faint);
+    }
+    .result-bookmark-btn {
+      margin-left: auto; background: none; border: none;
+      color: var(--text-faint); font-size: 18px; padding: 4px;
+      transition: color var(--transition); line-height: 1;
+    }
+    .result-bookmark-btn:hover, .result-bookmark-btn.saved { color: var(--saffron); }
+    .result-sanskrit {
+      font-size: 18px; color: var(--deep-blue); line-height: 1.85;
+      padding: 14px 18px; background: var(--gold-light);
+      border-left: 3px solid var(--gold); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-bottom: 12px;
+    }
+    .result-translation {
+      font-size: 15px; color: var(--text-dark); font-style: italic;
+      line-height: 1.65; margin-bottom: 8px;
+    }
+    .result-meaning {
+      font-size: 13px; color: var(--text-muted); line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .concepts-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .concept-tag {
+      background: var(--blue-light); color: var(--deep-blue);
+      border-radius: var(--radius-full); padding: 3px 12px;
+      font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 500;
+    }
+    .result-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .r-action-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: var(--radius-full); padding: 6px 16px;
+      font-size: 12px; color: var(--text-muted);
+      font-family: 'Inter', sans-serif; transition: all var(--transition);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .r-action-btn:hover { border-color: var(--saffron); color: var(--saffron); background: var(--saffron-light); }
+    .r-action-btn.primary { background: var(--saffron); color: white; border-color: var(--saffron); }
+    .r-action-btn.primary:hover { background: var(--saffron-dark); border-color: var(--saffron-dark); }
+    .ai-explain-box {
+      background: linear-gradient(135deg, #FFF9F0 0%, #FEF5E4 100%);
+      border: 1px solid rgba(232,113,10,0.2);
+      border-radius: var(--radius-md); padding: 16px; margin-top: 14px;
+    }
+    .ai-explain-header {
+      font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600;
+      color: var(--saffron); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ai-explain-text { font-size: 13px; color: var(--text-body); line-height: 1.75; }
+
+    /* Loading state */
+    .search-loading {
+      text-align: center; padding: 48px; color: var(--text-muted);
+      font-style: italic; font-size: 15px;
+    }
+    .loader {
+      width: 40px; height: 40px; margin: 0 auto 16px;
+      border: 3px solid var(--border);
+      border-top-color: var(--saffron);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Verse detail */
+    .verse-detail-card {
+      background: white; border: 1px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 20px;
+    }
+    .verse-detail-header {
+      background: linear-gradient(135deg, var(--deep-blue), var(--blue-mid));
+      padding: 28px 28px 24px; text-align: center;
+    }
+    .verse-detail-ref {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      color: rgba(255,255,255,0.6); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .verse-detail-sanskrit {
+      font-size: 22px; color: #F5E080; line-height: 2;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    }
+    .verse-detail-body { padding: 28px; }
+    .verse-section-title {
+      font-family: 'Cinzel', serif; font-size: 14px; color: var(--saffron);
+      font-weight: 600; margin-bottom: 8px; margin-top: 20px;
+    }
+    .verse-section-title:first-child { margin-top: 0; }
+    .verse-section-text { font-size: 15px; color: var(--text-body); line-height: 1.75; }
+    .verse-section-text.italic { font-style: italic; color: var(--text-muted); }
+    .back-btn {
+      background: none; border: none; color: var(--saffron);
+      font-size: 14px; font-family: 'Inter', sans-serif;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      margin-bottom: 18px; padding: 0;
+    }
+    .back-btn:hover { color: var(--saffron-dark); }
+
+    /* ===================== LIBRARY PAGE ===================== */
+    .library-page { padding: 32px 24px; max-width: 1140px; margin: 0 auto; }
+    .library-hero-strip {
+      background: linear-gradient(135deg, var(--deep-blue), var(--blue-mid));
+      border-radius: var(--radius-xl); padding: 32px; margin-bottom: 32px;
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .library-hero-strip-text h2 {
+      font-family: 'Cinzel', serif; color: #F5C842; font-size: 24px; margin-bottom: 6px;
+    }
+    .library-hero-strip-text p {
+      color: rgba(255,255,255,0.7); font-size: 14px; max-width: 500px;
+    }
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+    .lib-card {
+      background: white; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+      transition: all var(--transition); cursor: pointer;
+    }
+    .lib-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .lib-card-header {
+      background: linear-gradient(150deg, var(--deep-blue) 0%, var(--blue-mid) 100%);
+      padding: 24px 20px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .lib-card-header::after {
+      content: attr(data-symbol);
+      position: absolute; font-size: 60px; color: rgba(255,255,255,0.05);
+      right: 10px; bottom: -8px; pointer-events: none;
+    }
+    .lib-card-icon { font-size: 40px; margin-bottom: 8px; }
+    .lib-card-title {
+      font-family: 'Cinzel', serif; color: #F5C842; font-size: 16px;
+      font-weight: 500; margin-bottom: 4px;
+    }
+    .lib-card-subtitle {
+      color: rgba(255,255,255,0.6); font-size: 12px;
+      font-family: 'Inter', sans-serif;
+    }
+    .lib-card-body { padding: 16px; }
+    .lib-stat-row {
+      display: flex; justify-content: space-between;
+      padding: 7px 0; border-bottom: 1px solid var(--border-light);
+      font-size: 12px;
+    }
+    .lib-stat-row:last-child { border-bottom: none; }
+    .lib-stat-label { color: var(--text-muted); font-family: 'Inter', sans-serif; }
+    .lib-stat-value { color: var(--deep-blue); font-weight: 500; font-family: 'Inter', sans-serif; }
+    .lib-card-footer {
+      padding: 12px 16px; border-top: 1px solid var(--border-light);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .lib-type-badge {
+      background: var(--blue-light); color: var(--deep-blue);
+      border-radius: var(--radius-full); padding: 3px 12px;
+      font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 500;
+    }
+    .lib-explore-btn {
+      background: var(--saffron-light); color: var(--saffron);
+      border: 1px solid rgba(232,113,10,0.3); border-radius: var(--radius-full);
+      padding: 5px 14px; font-size: 12px; font-family: 'Inter', sans-serif;
+      cursor: pointer; transition: all var(--transition);
+    }
+    .lib-explore-btn:hover { background: var(--saffron); color: white; }
+
+    /* ===================== CHAT PAGE ===================== */
+    .chat-layout {
+      display: flex; height: calc(100vh - 58px);
+    }
+    .chat-sidebar {
+      width: 260px; flex-shrink: 0; background: var(--deep-blue);
+      display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .chat-sidebar-head {
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .guru-avatar-lg {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, #F5C842, #E8710A);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 12px;
+      box-shadow: 0 4px 16px rgba(232,113,10,0.4);
+    }
+    .chat-sidebar-name {
+      font-family: 'Cinzel', serif; color: #F5C842; font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .chat-sidebar-desc {
+      color: rgba(255,255,255,0.55); font-size: 11px;
+      font-family: 'Inter', sans-serif; line-height: 1.5;
+    }
+    .chat-sidebar-section { padding: 14px 18px 6px; }
+    .chat-sidebar-section-label {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 10px;
+    }
+    .chat-starter {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md); padding: 10px 12px;
+      color: rgba(255,255,255,0.75); font-size: 12.5px;
+      cursor: pointer; margin-bottom: 6px; text-align: left;
+      font-family: 'Noto Serif', serif; transition: all var(--transition);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .chat-starter:hover {
+      background: rgba(245,200,66,0.1); border-color: rgba(245,200,66,0.25);
+      color: #F5C842;
+    }
+    .chat-starter-icon { font-size: 16px; flex-shrink: 0; }
+    .chat-clear-btn {
+      margin: auto 18px 18px; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md);
+      color: rgba(255,255,255,0.5); padding: 8px 14px; font-size: 12px;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: all var(--transition);
+    }
+    .chat-clear-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+
+    .chat-main {
+      flex: 1; display: flex; flex-direction: column; overflow: hidden;
+      background: var(--cream);
+    }
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 24px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .chat-msg { display: flex; gap: 12px; max-width: 80%; }
+    .chat-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+    .chat-msg.ai { align-self: flex-start; }
+    .chat-msg-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0; align-self: flex-end;
+    }
+    .chat-msg.ai .chat-msg-avatar { background: linear-gradient(135deg, #F5C842, #E8710A); }
+    .chat-msg.user .chat-msg-avatar { background: var(--deep-blue); color: white; font-size: 14px; font-family: 'Inter', sans-serif; }
+    .chat-msg-body { display: flex; flex-direction: column; gap: 4px; }
+    .chat-bubble {
+      padding: 13px 17px; border-radius: var(--radius-lg);
+      font-size: 14px; line-height: 1.75;
+    }
+    .chat-msg.ai .chat-bubble {
+      background: white; border: 1px solid var(--border);
+      color: var(--text-body); border-bottom-left-radius: 4px;
+    }
+    .chat-msg.user .chat-bubble {
+      background: var(--deep-blue); color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-bubble p { margin-bottom: 10px; }
+    .chat-bubble p:last-child { margin-bottom: 0; }
+    .chat-bubble strong { color: var(--gold); }
+    .chat-msg.user .chat-bubble strong { color: var(--saffron-mid); }
+    .chat-sources {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
+    }
+    .chat-source-tag {
+      background: var(--gold-light); color: var(--gold);
+      border: 1px solid var(--border); border-radius: var(--radius-full);
+      padding: 2px 10px; font-size: 11px; font-family: 'Inter', sans-serif;
+    }
+    .chat-time {
+      font-size: 11px; color: var(--text-faint);
+      font-family: 'Inter', sans-serif;
+    }
+    .chat-msg.user .chat-time { text-align: right; }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex; gap: 5px; align-items: center;
+      padding: 13px 17px;
+    }
+    .typing-dot {
+      width: 8px; height: 8px; background: var(--saffron);
+      border-radius: 50%; animation: typing-bounce 1.2s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typing-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* Suggested prompts bar */
+    .chat-suggestions {
+      padding: 10px 20px; background: white;
+      border-top: 1px solid var(--border);
+      display: flex; flex-wrap: wrap; gap: 7px;
+    }
+    .chat-suggestion-btn {
+      background: var(--gold-light); color: var(--deep-blue);
+      border: 1px solid var(--border); border-radius: var(--radius-full);
+      padding: 6px 14px; font-size: 12.5px; cursor: pointer;
+      font-family: 'Noto Serif', serif; transition: all var(--transition);
+    }
+    .chat-suggestion-btn:hover {
+      background: var(--saffron-light); border-color: var(--saffron);
+      color: var(--saffron);
+    }
+
+    /* Chat input */
+    .chat-input-area {
+      padding: 14px 20px; background: white;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 10px; align-items: center;
+    }
+    .chat-textarea {
+      flex: 1; border: 1px solid var(--border); border-radius: var(--radius-full);
+      padding: 10px 18px; font-size: 14px; outline: none; resize: none;
+      font-family: 'Noto Serif', serif; color: var(--text-dark);
+      transition: border-color var(--transition); max-height: 100px;
+      background: var(--cream);
+    }
+    .chat-textarea:focus { border-color: var(--saffron); background: white; }
+    .chat-send-btn {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--saffron); color: white; border: none;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 18px; transition: background var(--transition);
+    }
+    .chat-send-btn:hover { background: var(--saffron-dark); }
+    .chat-send-btn:disabled { background: var(--border); cursor: not-allowed; }
+
+    /* ===================== DASHBOARD PAGE ===================== */
+    .dashboard-layout { display: flex; min-height: calc(100vh - 58px); }
+    .dashboard-sidebar {
+      width: 220px; flex-shrink: 0; background: white;
+      border-right: 1px solid var(--border); padding: 24px 0;
+    }
+    .dash-section-label {
+      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-faint); padding: 0 18px; margin-bottom: 8px;
+    }
+    .dash-nav-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 18px; font-size: 14px; color: var(--text-muted);
+      cursor: pointer; transition: all var(--transition); border: none;
+      background: none; width: 100%; text-align: left;
+      font-family: 'Noto Serif', serif;
+    }
+    .dash-nav-link:hover { background: var(--cream); color: var(--text-dark); }
+    .dash-nav-link.active {
+      background: var(--saffron-light); color: var(--saffron);
+      border-right: 3px solid var(--saffron);
+    }
+    .dash-main { flex: 1; padding: 28px; overflow-y: auto; background: var(--cream); }
+    .dash-greeting {
+      font-family: 'Cinzel', serif; font-size: 22px;
+      color: var(--deep-blue); margin-bottom: 6px;
+    }
+    .dash-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .dash-stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .dash-stat-card {
+      background: white; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 18px;
+    }
+    .dash-stat-icon { font-size: 26px; margin-bottom: 10px; }
+    .dash-stat-num {
+      font-family: 'Cinzel', serif; font-size: 26px;
+      color: var(--saffron); font-weight: 600; line-height: 1;
+    }
+    .dash-stat-label {
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      color: var(--text-muted); margin-top: 4px;
+    }
+    .dash-section-heading {
+      font-family: 'Cinzel', serif; font-size: 17px;
+      color: var(--deep-blue); margin-bottom: 14px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+    .bookmarks-list { display: flex; flex-direction: column; gap: 10px; }
+    .bookmark-item {
+      background: white; border: 1px solid var(--border);
+      border-left: 3px solid var(--saffron); border-radius: var(--radius-md);
+      padding: 14px 16px; display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px;
+    }
+    .bookmark-item-text { flex: 1; }
+    .bookmark-ref {
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      color: var(--saffron); font-weight: 600; margin-bottom: 4px;
+    }
+    .bookmark-sanskrit { font-size: 15px; color: var(--deep-blue); line-height: 1.6; }
+    .bookmark-remove {
+      background: none; border: none; color: var(--text-faint);
+      cursor: pointer; font-size: 16px; padding: 2px;
+      transition: color var(--transition);
+    }
+    .bookmark-remove:hover { color: #C94040; }
+    .history-list { display: flex; flex-direction: column; gap: 8px; }
+    .history-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; background: white; border: 1px solid var(--border);
+      border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition);
+    }
+    .history-item:hover { border-color: var(--saffron); }
+    .history-icon { font-size: 16px; color: var(--text-faint); }
+    .history-query { font-size: 14px; color: var(--text-body); flex: 1; }
+    .history-time { font-size: 11px; color: var(--text-faint); font-family: 'Inter', sans-serif; }
+    .empty-state {
+      text-align: center; padding: 40px; color: var(--text-faint);
+      font-style: italic;
+    }
+    .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+
+    /* ===================== TOAST ===================== */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: var(--deep-blue); color: white;
+      border-radius: var(--radius-md); padding: 12px 20px;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      box-shadow: var(--shadow-lg); transform: translateY(80px);
+      opacity: 0; transition: all 0.3s ease; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .navbar { padding: 0 14px; gap: 10px; }
+      .nav-logo-sub { display: none; }
+      .nav-search-wrap { max-width: 200px; }
+      .chat-layout { flex-direction: column; }
+      .chat-sidebar { width: 100%; height: auto; flex-direction: row; flex-wrap: wrap; padding: 12px; gap: 8px; }
+      .chat-sidebar-head { display: none; }
+      .chat-sidebar-section { padding: 0; }
+      .chat-sidebar-section-label { display: none; }
+      .chat-starter { font-size: 11px; padding: 7px 10px; }
+      .chat-clear-btn { display: none; }
+      .dashboard-layout { flex-direction: column; }
+      .dashboard-sidebar { width: 100%; display: flex; flex-wrap: wrap; padding: 10px; border-right: none; border-bottom: 1px solid var(--border); }
+      .dash-nav-link { padding: 8px 14px; width: auto; }
+      .dash-nav-link.active { border-right: none; border-bottom: 2px solid var(--saffron); background: var(--saffron-light); }
+    }
+
+    @media (max-width: 540px) {
+      .hero-title { font-size: 24px; }
+      .nav-links { gap: 2px; }
+      .nav-link { padding: 6px 10px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="nav-logo" onclick="showPage('home')" href="#">
+    <span class="nav-logo-symbol">ॐ</span>
+    <span class="nav-logo-text">
+      <span class="nav-logo-title">Sanskriti</span>
+      <span class="nav-logo-sub">Sacred Knowledge</span>
+    </span>
+  </a>
+
+  <div class="nav-search-wrap" id="nav-search-bar" style="display:none">
+    <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="nav-search-input" placeholder="Search scriptures, verses, concepts…" onkeydown="if(event.key==='Enter') doSearch(this.value)" />
+    <button class="nav-search-btn" onclick="doSearch(document.getElementById('nav-search-input').value)">Search</button>
+  </div>
+
+  <div class="nav-links">
+    <button class="nav-link active" id="tab-home" onclick="showPage('home')">Home</button>
+    <button class="nav-link" id="tab-library" onclick="showPage('library')">Library</button>
+    <button class="nav-link nav-link-guru" id="tab-chat" onclick="showPage('chat')">🕉 AI Guru</button>
+    <button class="nav-link" id="tab-dashboard" onclick="showPage('dashboard')">Dashboard</button>
+  </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="home-hero">
+    <p class="hero-eyebrow">The Ancient Wisdom Platform</p>
+    <h1 class="hero-title">Sanskriti Search Engine</h1>
+    <p class="hero-subtitle">Explore the eternal wisdom of Indian scriptures with AI</p>
+    <p class="hero-mantra">सा विद्या या विमुक्तये</p>
+    <p class="hero-mantra-trans">— That is true knowledge which liberates</p>
+
+    <div class="hero-search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="hero-search-input" placeholder="Search Vedas, Upanishads, Dharma, Karma, Moksha…" onkeydown="if(event.key==='Enter') doSearch(this.value)" />
+      <button class="hero-search-btn" onclick="doSearch(document.getElementById('hero-search-input').value)">Search</button>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag" onclick="doSearch('Dharma')">Dharma</span>
+      <span class="hero-tag" onclick="doSearch('Karma')">Karma</span>
+      <span class="hero-tag" onclick="doSearch('Moksha')">Moksha</span>
+      <span class="hero-tag" onclick="doSearch('Atman Brahman')">Atman &amp; Brahman</span>
+      <span class="hero-tag" onclick="doSearch('Ahimsa')">Ahimsa</span>
+      <span class="hero-tag" onclick="doSearch('Yoga')">Yoga</span>
+      <span class="hero-tag" onclick="doSearch('AUM')">OM / AUM</span>
+      <span class="hero-tag" onclick="doSearch('Advaita Vedanta')">Advaita Vedanta</span>
+      <span class="hero-tag" onclick="doSearch('Nishkama Karma')">Nishkama Karma</span>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">18</div>
+      <div class="stat-label">Major Puranas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">108</div>
+      <div class="stat-label">Upanishads</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">700</div>
+      <div class="stat-label">Gita Verses</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10,552</div>
+      <div class="stat-label">Rigveda Hymns</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100K+</div>
+      <div class="stat-label">Total Shlokas</div>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="home-section">
+    <p class="section-label">Browse by scripture</p>
+    <h2 class="section-heading">Sacred Text Categories</h2>
+    <div class="cat-grid" id="cat-grid"></div>
+  </div>
+
+  <!-- Featured Verses -->
+  <div class="home-section-wide">
+    <div class="inner">
+      <p class="section-label">Timeless wisdom</p>
+      <h2 class="section-heading">Featured Verses</h2>
+      <div class="feat-grid" id="feat-grid"></div>
+    </div>
+  </div>
+
+  <!-- AI Guru CTA -->
+  <div class="home-section">
+    <div class="guru-cta-box">
+      <div class="guru-cta-left">
+        <div class="guru-cta-icon">🕉️</div>
+        <h2 class="guru-cta-title">Ask the AI Guru</h2>
+        <p class="guru-cta-desc">
+          Have a deep conversation with our AI Guru — trained on Vedas, Upanishads, Bhagavad Gita,
+          Ramayana, Mahabharata, and Vedantic philosophy. Ask anything about Dharma, Karma, Yoga, and ancient wisdom.
+        </p>
+        <button class="guru-cta-btn" onclick="showPage('chat')">Open AI Guru Chat →</button>
+      </div>
+      <div class="guru-questions">
+        <button class="guru-q-btn" onclick="goChat('What is the true meaning of Dharma?')">
+          What is the true meaning of Dharma? <span class="guru-q-arrow">↗</span>
+        </button>
+        <button class="guru-q-btn" onclick="goChat('Explain the concept of Karma in Bhagavad Gita')">
+          Explain Karma in the Bhagavad Gita <span class="guru-q-arrow">↗</span>
+        </button>
+        <button class="guru-q-btn" onclick="goChat('What is Advaita Vedanta and who taught it?')">
+          What is Advaita Vedanta? <span class="guru-q-arrow">↗</span>
+        </button>
+        <button class="guru-q-btn" onclick="goChat('Explain the paths to Moksha in Hindu philosophy')">
+          Paths to Moksha &amp; liberation <span class="guru-q-arrow">↗</span>
+        </button>
+        <button class="guru-q-btn" onclick="goChat('What does the Bhagavad Gita say about the nature of the soul?')">
+          The soul in Bhagavad Gita <span class="guru-q-arrow">↗</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== SEARCH PAGE ==================== -->
+<div class="page" id="page-search">
+  <div class="search-layout">
+    <div class="search-top">
+      <div class="search-meta-text" id="search-meta">Searching…</div>
+    </div>
+    <div class="filter-row" id="filter-row"></div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- ==================== LIBRARY PAGE ==================== -->
+<div class="page" id="page-library">
+  <div class="library-page">
+    <div class="library-hero-strip">
+      <div>
+        <span style="font-size:48px">📚</span>
+      </div>
+      <div class="library-hero-strip-text">
+        <h2>Scripture Library</h2>
+        <p>
+          Explore the complete collection of Indian sacred texts — from the four Vedas to the
+          Yoga Sutras, all indexed, searchable, and enriched with AI commentary.
+        </p>
+      </div>
+    </div>
+    <div class="library-grid" id="library-grid"></div>
+  </div>
+</div>
+
+<!-- ==================== CHAT PAGE ==================== -->
+<div class="page" id="page-chat">
+  <div class="chat-layout">
+
+    <!-- Sidebar -->
+    <aside class="chat-sidebar">
+      <div class="chat-sidebar-head">
+        <div class="guru-avatar-lg">🕉️</div>
+        <div class="chat-sidebar-name">AI Guru — Jnana</div>
+        <div class="chat-sidebar-desc">Expert in Vedas, Upanishads, Bhagavad Gita &amp; Indian philosophy</div>
+      </div>
+
+      <div class="chat-sidebar-section">
+        <div class="chat-sidebar-section-label">Starter questions</div>
+        <button class="chat-starter" onclick="sendChatQ('What is Dharma and why is it central to Indian thought?')">
+          <span class="chat-starter-icon">⚖️</span> What is Dharma?
+        </button>
+        <button class="chat-starter" onclick="sendChatQ('Explain the concept of Karma and its fruits')">
+          <span class="chat-starter-icon">🔄</span> Explain Karma
+        </button>
+        <button class="chat-starter" onclick="sendChatQ('What is Moksha and what are the paths to liberation?')">
+          <span class="chat-starter-icon">🕊️</span> Paths to Moksha
+        </button>
+        <button class="chat-starter" onclick="sendChatQ('Explain the philosophy of Advaita Vedanta by Adi Shankaracharya')">
+          <span class="chat-starter-icon">🪷</span> Advaita Vedanta
+        </button>
+        <button class="chat-starter" onclick="sendChatQ('What are the four Mahavakyas of the Upanishads?')">
+          <span class="chat-starter-icon">📿</span> The Mahavakyas
+        </button>
+        <button class="chat-starter" onclick="sendChatQ('What does the Bhagavad Gita teach about selfless action?')">
+          <span class="chat-starter-icon">⚔️</span> Gita on Action
+        </button>
+        <button class="chat-starter" onclick="sendChatQ('Explain the three gunas — Sattva, Rajas, Tamas')">
+          <span class="chat-starter-icon">🌀</span> The Three Gunas
+        </button>
+        <button class="chat-starter" onclick="sendChatQ('What is the concept of Maya in Vedanta?')">
+          <span class="chat-starter-icon">🌫️</span> Maya &amp; Illusion
+        </button>
+      </div>
+
+      <button class="chat-clear-btn" onclick="clearChat()">↺ New conversation</button>
+    </aside>
+
+    <!-- Main chat area -->
+    <div class="chat-main">
+      <div class="chat-messages" id="chat-messages">
+        <!-- Welcome message rendered by JS -->
+      </div>
+
+      <div class="chat-suggestions" id="chat-suggestions">
+        <button class="chat-suggestion-btn" onclick="sendChatQ('What is the core teaching of the Bhagavad Gita?')">Bhagavad Gita's core teaching</button>
+        <button class="chat-suggestion-btn" onclick="sendChatQ('Explain Om Tat Sat')">Om Tat Sat</button>
+        <button class="chat-suggestion-btn" onclick="sendChatQ('What are the Ashtanga Yoga steps?')">Ashtanga Yoga</button>
+        <button class="chat-suggestion-btn" onclick="sendChatQ('Difference between Dvaita and Advaita Vedanta')">Dvaita vs Advaita</button>
+      </div>
+
+      <div class="chat-input-area">
+        <textarea class="chat-textarea" id="chat-input" rows="1" placeholder="Ask about scriptures, philosophy, Sanskrit verses…"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"
+          oninput="autoResize(this)"></textarea>
+        <button class="chat-send-btn" id="chat-send-btn" onclick="sendChat()" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DASHBOARD PAGE ==================== -->
+<div class="page" id="page-dashboard">
+  <div class="dashboard-layout">
+    <aside class="dashboard-sidebar">
+      <div style="padding:0 12px 14px">
+        <div class="dash-section-label" style="padding:0 6px 6px">Menu</div>
+        <button class="dash-nav-link active" id="dsec-overview" onclick="showDashSection('overview')">📊 Overview</button>
+        <button class="dash-nav-link" id="dsec-bookmarks" onclick="showDashSection('bookmarks')">🔖 Bookmarks</button>
+        <button class="dash-nav-link" id="dsec-history" onclick="showDashSection('history')">🕐 Search History</button>
+        <button class="dash-nav-link" id="dsec-notes" onclick="showDashSection('notes')">📝 Notes</button>
+      </div>
+    </aside>
+    <div class="dash-main">
+      <!-- Overview -->
+      <div id="dsec-overview-content">
+        <h2 class="dash-greeting">🙏 Welcome, Seeker</h2>
+        <p class="dash-sub">Your personal knowledge dashboard</p>
+        <div class="dash-stats-row">
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon">🔍</div>
+            <div class="dash-stat-num" id="stat-searches">0</div>
+            <div class="dash-stat-label">Searches made</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon">🔖</div>
+            <div class="dash-stat-num" id="stat-bookmarks">0</div>
+            <div class="dash-stat-label">Verses saved</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon">💬</div>
+            <div class="dash-stat-num" id="stat-chats">0</div>
+            <div class="dash-stat-label">AI conversations</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon">📚</div>
+            <div class="dash-stat-num">11</div>
+            <div class="dash-stat-label">Scriptures available</div>
+          </div>
+        </div>
+        <h3 class="dash-section-heading">Recently saved verses</h3>
+        <div id="dash-recent-bookmarks"></div>
+      </div>
+
+      <!-- Bookmarks -->
+      <div id="dsec-bookmarks-content" class="hidden">
+        <h2 class="dash-greeting">Saved Verses</h2>
+        <p class="dash-sub">Your bookmarked shlokas and verses</p>
+        <div class="bookmarks-list" id="dash-bookmarks-list"></div>
+      </div>
+
+      <!-- History -->
+      <div id="dsec-history-content" class="hidden">
+        <h2 class="dash-greeting">Search History</h2>
+        <p class="dash-sub">Your recent searches</p>
+        <div class="history-list" id="dash-history-list"></div>
+      </div>
+
+      <!-- Notes -->
+      <div id="dsec-notes-content" class="hidden">
+        <h2 class="dash-greeting">My Notes</h2>
+        <p class="dash-sub">Your personal reflections and annotations</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <textarea id="notes-textarea" style="width:100%;height:200px;border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;font-family:'Noto Serif',serif;font-size:14px;resize:vertical;background:white;color:var(--text-body);outline:none;" placeholder="Write your reflections, insights, and notes here…"></textarea>
+          <button onclick="saveNote()" style="align-self:flex-start;background:var(--saffron);color:white;border:none;border-radius:var(--radius-full);padding:10px 22px;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;">Save Note</button>
+          <div id="saved-notes-list" style="display:flex;flex-direction:column;gap:10px;margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+============================================================ */
+const CATEGORIES = [
+  {icon:'🔱',name:'Rigveda',count:'10,552 hymns'},
+  {icon:'🌿',name:'Yajurveda',count:'1,975 verses'},
+  {icon:'🎵',name:'Samaveda',count:'1,875 mantras'},
+  {icon:'✨',name:'Atharvaveda',count:'5,977 hymns'},
+  {icon:'🪔',name:'Upanishads',count:'108 texts'},
+  {icon:'⚔️',name:'Bhagavad Gita',count:'700 verses'},
+  {icon:'🦅',name:'Ramayana',count:'24,000 shlokas'},
+  {icon:'🐘',name:'Mahabharata',count:'100,000 shlokas'},
+  {icon:'📖',name:'Puranas',count:'18 major texts'},
+  {icon:'🧘',name:'Yoga Sutras',count:'196 sutras'},
+  {icon:'🌿',name:'Ayurveda',count:'8 branches'},
+  {icon:'🌸',name:'Vedanta Sutras',count:'555 sutras'},
+];
+
+const VERSES = [
+  {
+    ref:'Bhagavad Gita 2.47',
+    source:'Bhagavad Gita', chapter:'Chapter 2', verse:'47',
+    sanskrit:'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥',
+    trans:'You have the right to perform your prescribed duties, but you are not entitled to the fruits of your actions.',
+    meaning:'This verse establishes the foundational principle of Karma Yoga — the path of selfless action. Sri Krishna instructs Arjuna to perform his duty without attachment to outcomes or desire for reward.',
+    commentary:'On the battlefield of Kurukshetra, Sri Krishna imparts this transformative wisdom to Arjuna. The verse is the cornerstone of Nishkama Karma — action without desire — and forms the bedrock of Karma Yoga philosophy.',
+    concepts:['Karma Yoga','Nishkama Karma','Detachment','Duty','Bhagavad Gita']
+  },
+  {
+    ref:'Chandogya Upanishad 6.8.7',
+    source:'Chandogya Upanishad', chapter:'Chapter 6', verse:'8.7',
+    sanskrit:'तत्त्वमसि',
+    trans:'Thou art That (Tat Tvam Asi)',
+    meaning:'One of the four Mahavakyas — the great sayings of the Upanishads. This declares the absolute identity between the individual soul (Atman) and the ultimate reality (Brahman). You are not separate from the infinite.',
+    commentary:'The sage Uddalaka Aruni imparts this supreme truth to his son Shvetaketu, demolishing the illusion of separateness. This is the central insight of Advaita Vedanta: there is only one undivided reality.',
+    concepts:['Mahavakya','Atman','Brahman','Advaita','Non-duality','Upanishad']
+  },
+  {
+    ref:'Rigveda 1.164.46',
+    source:'Rigveda', chapter:'Mandala 1', verse:'164.46',
+    sanskrit:'एकं सद्विप्रा बहुधा वदन्ति',
+    trans:'Truth is one; the wise speak of it in many ways.',
+    meaning:'This celebrated Rigvedic verse proclaims the unity underlying all religious diversity. The different gods, paths, and philosophies are all varied expressions of the single ultimate Truth.',
+    commentary:'Perhaps the most quoted verse from the Rigveda, it establishes Hinduism\'s pluralistic and inclusive worldview. The "one truth" referred to is the ultimate divine reality which seers perceive and describe differently.',
+    concepts:['Ekam Sat','Truth','Unity','Pluralism','Vedic Philosophy']
+  },
+  {
+    ref:'Isha Upanishad 1',
+    source:'Isha Upanishad', chapter:'Verse 1', verse:'1',
+    sanskrit:'ईशावास्यमिदं सर्वं यत्किञ्च जगत्यां जगत्।\nतेन त्यक्तेन भुञ्जीथा मा गृधः कस्यस्विद्धनम्॥',
+    trans:'All this — whatever exists in this changing universe — is pervaded by the Lord. Enjoy through renunciation; do not covet what belongs to others.',
+    meaning:'The Isha Upanishad opens by declaring that the entire cosmos is permeated by divine presence. It teaches the path of joyful renunciation — enjoying the world without clinging to it.',
+    commentary:'Adi Shankaracharya considered this single verse to contain the entire essence of Vedanta. The Upanishad establishes that renunciation is not rejection of the world but seeing the divine in all of it.',
+    concepts:['Ishvara','Renunciation','Cosmos','Vedanta','Divine Presence']
+  },
+  {
+    ref:'Bhagavad Gita 4.7–4.8',
+    source:'Bhagavad Gita', chapter:'Chapter 4', verse:'7-8',
+    sanskrit:'यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥',
+    trans:'Whenever righteousness declines and unrighteousness rises, O Bharata, I manifest myself.',
+    meaning:'Sri Krishna promises to incarnate in the world whenever dharma is threatened. This forms the doctrinal basis for the concept of the Divine Avatar — God descending into the world to restore cosmic order.',
+    commentary:'The basis of the concept of Dashavatara — the ten principal avatars of Vishnu. Krishna reveals his divine nature and the cyclical pattern of divine intervention in human history.',
+    concepts:['Avatar','Dharma','Divine Incarnation','Protection','Vishnu']
+  },
+  {
+    ref:'Yoga Sutras 1.2',
+    source:'Yoga Sutras', chapter:'Samadhi Pada', verse:'1.2',
+    sanskrit:'योगश्चित्तवृत्तिनिरोधः',
+    trans:'Yoga is the cessation of the fluctuations of the mind.',
+    meaning:'Patanjali\'s most precise definition of Yoga. It is not merely physical postures but the complete stilling of all mental modifications — thought waves, emotions, and ego — leading to the pure state of the seer.',
+    commentary:'In just four Sanskrit words, Patanjali encapsulates the entire science of yoga and meditation. When the mind is completely still, the pure consciousness (Purusha) shines in its own radiant nature.',
+    concepts:['Yoga','Chitta','Vritti','Mind','Samadhi','Patanjali','Meditation']
+  },
+];
+
+const LIBRARY_DATA = [
+  {icon:'🔱',title:'The Four Vedas',sub:'Shruti — Revealed Knowledge',verses:'~20,000',age:'1500–500 BCE',lang:'Vedic Sanskrit',type:'Shruti',symbol:'ऋ'},
+  {icon:'🪔',title:'The Upanishads',sub:'108 Philosophical Dialogues',verses:'~4,500',age:'800–200 BCE',lang:'Sanskrit',type:'Shruti',symbol:'उ'},
+  {icon:'⚔️',title:'Bhagavad Gita',sub:'700 verses of divine dialogue',verses:'700',age:'~400 BCE',lang:'Sanskrit',type:'Smriti',symbol:'गी'},
+  {icon:'🦅',title:'Ramayana',sub:'Epic of Rama by Valmiki',verses:'24,000',age:'500–100 BCE',lang:'Sanskrit',type:'Itihasa',symbol:'रा'},
+  {icon:'🐘',title:'Mahabharata',sub:'World\'s longest epic poem',verses:'100,000+',age:'400 BCE–400 CE',lang:'Sanskrit',type:'Itihasa',symbol:'म'},
+  {icon:'📖',title:'The 18 Puranas',sub:'Ancient encyclopedic texts',verses:'400,000+',age:'300–1200 CE',lang:'Sanskrit',type:'Purana',symbol:'पु'},
+  {icon:'🧘',title:'Yoga Sutras',sub:'196 sutras by Patanjali',verses:'196',age:'~400 CE',lang:'Sanskrit',type:'Darshana',symbol:'यो'},
+  {icon:'🌿',title:'Ayurvedic Texts',sub:'Charaka & Sushruta Samhita',verses:'~12,000',age:'~600 BCE',lang:'Sanskrit',type:'Vedanga',symbol:'आ'},
+  {icon:'🌸',title:'Vedanta Sutras',sub:'Brahma Sutras by Badarayana',verses:'555',age:'~200 BCE',lang:'Sanskrit',type:'Darshana',symbol:'वे'},
+  {icon:'💎',title:'Ashtavakra Gita',sub:'Dialogue on pure consciousness',verses:'298',age:'~700 CE',lang:'Sanskrit',type:'Smriti',symbol:'अ'},
+  {icon:'🔥',title:'Vivekachudamani',sub:'Adi Shankaracharya\'s masterwork',verses:'581',age:'~800 CE',lang:'Sanskrit',type:'Prakarana',symbol:'वि'},
+  {icon:'🌺',title:'Narada Bhakti Sutras',sub:'84 aphorisms on devotion',verses:'84',age:'~600 CE',lang:'Sanskrit',type:'Smriti',symbol:'ना'},
+];
+
+/* ============================================================
+   STATE
+============================================================ */
+const state = {
+  bookmarks: [],
+  searchHistory: [],
+  chatHistory: [],
+  chatMessageCount: 0,
+  isChatLoading: false,
+  notes: [],
+  activeFilters: [],
+  currentQuery: '',
+};
+
+/* ============================================================
+   PAGE ROUTING
+============================================================ */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  const tab = document.getElementById('tab-' + name);
+  if (tab) tab.classList.add('active');
+  const showSearch = name !== 'home';
+  document.getElementById('nav-search-bar').style.display = showSearch ? 'flex' : 'none';
+  if (name === 'dashboard') refreshDashboard();
+  if (name === 'chat' && state.chatMessageCount === 0) initChat();
+}
+
+/* ============================================================
+   RENDER HOME
+============================================================ */
+function renderHome() {
+  // Categories
+  const catGrid = document.getElementById('cat-grid');
+  catGrid.innerHTML = CATEGORIES.map(c => `
+    <div class="cat-card" onclick="doSearch('${c.name}')">
+      <div class="cat-card-icon">${c.icon}</div>
+      <div class="cat-card-name">${c.name}</div>
+      <div class="cat-card-count">${c.count}</div>
+    </div>
+  `).join('');
+
+  // Featured verses
+  const featGrid = document.getElementById('feat-grid');
+  featGrid.innerHTML = VERSES.slice(0, 4).map((v, i) => `
+    <div class="feat-card" onclick="showVerseDetail(${i})">
+      <div class="feat-ref">${v.ref}</div>
+      <div class="feat-sanskrit">${v.sanskrit.split('\n')[0]}</div>
+      <div class="feat-trans">${v.trans}</div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   SEARCH
+============================================================ */
+function doSearch(query) {
+  if (!query || !query.trim()) return;
+  query = query.trim();
+  state.currentQuery = query;
+  state.searchHistory.unshift({ query, time: new Date() });
+  if (state.searchHistory.length > 20) state.searchHistory.pop();
+  document.getElementById('nav-search-input').value = query;
+  showPage('search');
+
+  const meta = document.getElementById('search-meta');
+  const filterRow = document.getElementById('filter-row');
+  const results = document.getElementById('search-results');
+
+  meta.innerHTML = 'Searching…';
+  results.innerHTML = '<div class="search-loading"><div class="loader"></div>Searching through sacred texts with AI…</div>';
+
+  const filters = ['All','Vedas','Upanishads','Bhagavad Gita','Yoga','Puranas'];
+  filterRow.innerHTML = filters.map((f, i) => `
+    <button class="filter-chip${i===0?' active':''}" onclick="applyFilter(this,'${f}','${escAttr(query)}')">${f}</button>
+  `).join('');
+
+  setTimeout(() => {
+    const q = query.toLowerCase();
+    const matched = VERSES.filter(v =>
+      v.sanskrit.toLowerCase().includes(q) ||
+      v.trans.toLowerCase().includes(q) ||
+      v.meaning.toLowerCase().includes(q) ||
+      v.commentary.toLowerCase().includes(q) ||
+      v.concepts.some(c => c.toLowerCase().includes(q)) ||
+      v.source.toLowerCase().includes(q) ||
+      v.ref.toLowerCase().includes(q)
+    );
+    const display = matched.length ? matched : VERSES;
+    meta.innerHTML = `About <strong>${display.length} results</strong> for "<strong>${escHtml(query)}</strong>"`;
+    results.innerHTML = display.map((v, i) => renderResultCard(v, VERSES.indexOf(v))).join('');
+  }, 750);
+}
+
+function applyFilter(btn, filter, query) {
+  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const results = document.getElementById('search-results');
+  results.innerHTML = '<div class="search-loading"><div class="loader"></div>Filtering…</div>';
+  setTimeout(() => {
+    const filtered = filter === 'All' ? VERSES :
+      VERSES.filter(v => v.source.toLowerCase().includes(filter.toLowerCase()) || v.ref.toLowerCase().includes(filter.toLowerCase()));
+    results.innerHTML = (filtered.length ? filtered : VERSES).map((v, i) => renderResultCard(v, VERSES.indexOf(v))).join('');
+  }, 400);
+}
+
+function renderResultCard(v, idx) {
+  const isSaved = state.bookmarks.some(b => b.idx === idx);
+  return `
+  <div class="result-card" id="rc-${idx}">
+    <div class="result-header">
+      <span class="result-badge">${escHtml(v.source)}</span>
+      <span class="result-chapter">${escHtml(v.chapter)} · Verse ${escHtml(v.verse)}</span>
+      <button class="result-bookmark-btn${isSaved?' saved':''}" onclick="toggleBookmark(${idx},this)" title="Save verse">
+        ${isSaved ? '🔖' : '🔗'}
+      </button>
+    </div>
+    <div class="result-sanskrit">${escHtml(v.sanskrit).replace(/\n/g,'<br>')}</div>
+    <div class="result-translation">"${escHtml(v.trans)}"</div>
+    <div class="result-meaning">${escHtml(v.meaning)}</div>
+    <div class="concepts-row">${v.concepts.map(c=>`<span class="concept-tag">${escHtml(c)}</span>`).join('')}</div>
+    <div class="result-actions">
+      <button class="r-action-btn" onclick="toggleAIExplain(${idx})">✨ AI Explain</button>
+      <button class="r-action-btn" onclick="showVerseDetail(${idx})">📖 Full Verse</button>
+      <button class="r-action-btn" onclick="goChat('Explain this verse: ${escAttr(v.ref)} — ${escAttr(v.trans)}')">💬 Ask AI Guru</button>
+    </div>
+    <div id="aie-${idx}" class="hidden"></div>
+  </div>`;
+}
+
+function toggleBookmark(idx, btn) {
+  const exists = state.bookmarks.findIndex(b => b.idx === idx);
+  if (exists > -1) {
+    state.bookmarks.splice(exists, 1);
+    btn.classList.remove('saved');
+    btn.textContent = '🔗';
+    showToast('Verse removed from bookmarks');
+  } else {
+    state.bookmarks.push({ idx, verse: VERSES[idx], time: new Date() });
+    btn.classList.add('saved');
+    btn.textContent = '🔖';
+    showToast('Verse saved to bookmarks 🔖');
+  }
+}
+
+function toggleAIExplain(idx) {
+  const box = document.getElementById('aie-' + idx);
+  if (!box.classList.contains('hidden')) { box.classList.add('hidden'); return; }
+  box.classList.remove('hidden');
+  const v = VERSES[idx];
+  box.innerHTML = `
+    <div class="ai-explain-box">
+      <div class="ai-explain-header">🤖 AI Guru Explanation</div>
+      <div class="ai-explain-text"><div class="loader" style="width:24px;height:24px;border-width:2px;margin-bottom:8px"></div>Loading AI insight…</div>
+    </div>`;
+  callClaude(
+    `You are a Sanskrit scholar and Indian philosophy expert. For this verse: "${v.ref}" — "${v.trans}" (${v.source}), provide a clear 80-word scholarly explanation covering its philosophical depth and practical wisdom. Mention key terms: ${v.concepts.join(', ')}.`,
+    text => {
+      box.innerHTML = `
+        <div class="ai-explain-box">
+          <div class="ai-explain-header">🤖 AI Guru — ${escHtml(v.ref)}</div>
+          <div class="ai-explain-text">${formatAIText(text)}</div>
+        </div>`;
+    }
+  );
+}
+
+function showVerseDetail(idx) {
+  const v = VERSES[idx];
+  showPage('search');
+  document.getElementById('search-meta').innerHTML =
+    `<button class="back-btn" onclick="doSearch('${escAttr(state.currentQuery || v.source)}')">← Back to results</button>`;
+  document.getElementById('filter-row').innerHTML = '';
+  document.getElementById('search-results').innerHTML = `
+    <div class="verse-detail-card">
+      <div class="verse-detail-header">
+        <div class="verse-detail-ref">${escHtml(v.source)} · ${escHtml(v.chapter)} · Verse ${escHtml(v.verse)}</div>
+        <div class="verse-detail-sanskrit">${escHtml(v.sanskrit).replace(/\n/g,'<br>')}</div>
+      </div>
+      <div class="verse-detail-body">
+        <div class="verse-section-title">Translation</div>
+        <div class="verse-section-text italic">${escHtml(v.trans)}</div>
+        <div class="verse-section-title">Meaning</div>
+        <div class="verse-section-text">${escHtml(v.meaning)}</div>
+        <div class="verse-section-title">Commentary</div>
+        <div class="verse-section-text">${escHtml(v.commentary)}</div>
+        <div class="verse-section-title">Key Concepts</div>
+        <div class="concepts-row">${v.concepts.map(c=>`<span class="concept-tag">${escHtml(c)}</span>`).join('')}</div>
+        <div class="verse-section-title" style="margin-top:20px">🤖 AI Guru Insight</div>
+        <div id="verse-ai-${idx}"><div class="ai-explain-box"><div class="loader" style="width:24px;height:24px;border-width:2px;margin-bottom:8px"></div>Generating AI insight…</div></div>
+      </div>
+    </div>`;
+
+  callClaude(
+    `You are an expert in Indian philosophy and Sanskrit scriptures. For the verse "${v.ref}" — "${v.trans}" from ${v.source}: provide a rich 120-word explanation covering (1) its philosophical depth in ${v.source}, (2) practical wisdom for modern life, (3) how it connects to broader Indian thought. Be insightful, scholarly, and engaging.`,
+    text => {
+      const el = document.getElementById('verse-ai-' + idx);
+      if (el) el.innerHTML = `<div class="ai-explain-box"><div class="ai-explain-text">${formatAIText(text)}</div></div>`;
+    }
+  );
+}
+
+/* ============================================================
+   LIBRARY
+============================================================ */
+function renderLibrary() {
+  document.getElementById('library-grid').innerHTML = LIBRARY_DATA.map(l => `
+    <div class="lib-card" onclick="doSearch('${l.title}')">
+      <div class="lib-card-header" data-symbol="${l.symbol}">
+        <div class="lib-card-icon">${l.icon}</div>
+        <div class="lib-card-title">${l.title}</div>
+        <div class="lib-card-subtitle">${l.sub}</div>
+      </div>
+      <div class="lib-card-body">
+        <div class="lib-stat-row"><span class="lib-stat-label">Verses / Shlokas</span><span class="lib-stat-value">${l.verses}</span></div>
+        <div class="lib-stat-row"><span class="lib-stat-label">Period</span><span class="lib-stat-value">${l.age}</span></div>
+        <div class="lib-stat-row"><span class="lib-stat-label">Language</span><span class="lib-stat-value">${l.lang}</span></div>
+      </div>
+      <div class="lib-card-footer">
+        <span class="lib-type-badge">${l.type}</span>
+        <button class="lib-explore-btn" onclick="event.stopPropagation();doSearch('${l.title}')">Explore →</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   CHAT
+============================================================ */
+const SYSTEM_PROMPT = `You are Jnana, an AI Guru deeply versed in all Indian scriptures and philosophy — Vedas (Rigveda, Yajurveda, Samaveda, Atharvaveda), Upanishads (108 Upanishads including Isha, Kena, Katha, Mundaka, Chandogya, Brihadaranyaka), Bhagavad Gita, Ramayana, Mahabharata, 18 Puranas, Yoga Sutras of Patanjali, Ayurveda, and Vedantic philosophy (Advaita, Dvaita, Vishishtadvaita).
+
+Your style:
+- Wise, warm, scholarly yet accessible
+- Quote Sanskrit verses (with IAST transliteration when helpful) and cite exact chapter/verse references
+- Explain Sanskrit terms clearly
+- Connect ancient teachings to practical modern life
+- Reference multiple scriptures when illuminating
+- Use paragraph breaks for readability
+- Occasionally use 🕉️ or 🪔 for key moments, but don't overdo it
+
+Always be accurate, respectful, and enlightening. You are a guide, not just an information tool.`;
+
+function initChat() {
+  const msgs = document.getElementById('chat-messages');
+  msgs.innerHTML = '';
+  appendAIMessage(`🙏 **Namaste!** I am Jnana, your AI Guru.
+
+I am here to guide you through the vast ocean of Indian wisdom — the **Vedas, Upanishads, Bhagavad Gita, Ramayana, Mahabharata**, and the profound philosophy of Vedanta, Yoga, and Dharma.
+
+Ask me about any scripture, any concept — Karma, Moksha, Atman, Maya, the Mahavakyas — and I will illuminate the path for you.
+
+*"तमसो मा ज्योतिर्गमय" — Lead me from darkness to light (Brihadaranyaka Upanishad 1.3.28)*
+
+What knowledge do you seek today?`, ['Vedas', 'Bhagavad Gita', 'Upanishads']);
+}
+
+function appendAIMessage(text, sources) {
+  const msgs = document.getElementById('chat-messages');
+  const now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  const div = document.createElement('div');
+  div.className = 'chat-msg ai';
+  div.innerHTML = `
+    <div class="chat-msg-avatar">🕉️</div>
+    <div class="chat-msg-body">
+      <div class="chat-bubble">${formatAIText(text)}</div>
+      ${sources && sources.length ? `<div class="chat-sources">${sources.map(s=>`<span class="chat-source-tag">${s}</span>`).join('')}</div>` : ''}
+      <div class="chat-time">${now}</div>
+    </div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  state.chatMessageCount++;
+}
+
+function appendUserMessage(text) {
+  const msgs = document.getElementById('chat-messages');
+  const now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  const div = document.createElement('div');
+  div.className = 'chat-msg user';
+  div.innerHTML = `
+    <div class="chat-msg-avatar">U</div>
+    <div class="chat-msg-body">
+      <div class="chat-bubble">${escHtml(text)}</div>
+      <div class="chat-time">${now}</div>
+    </div>`;
+  document.getElementById('chat-messages').appendChild(div);
+  document.getElementById('chat-messages').scrollTop = 99999;
+  state.chatMessageCount++;
+}
+
+function appendTypingIndicator() {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ai'; div.id = 'typing-indicator';
+  div.innerHTML = `
+    <div class="chat-msg-avatar">🕉️</div>
+    <div class="chat-msg-body">
+      <div class="chat-bubble">
+        <div class="typing-indicator">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+    </div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = 99999;
+  return div;
+}
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const q = input.value.trim();
+  if (!q || state.isChatLoading) return;
+  input.value = ''; input.style.height = 'auto';
+
+  appendUserMessage(q);
+  document.getElementById('chat-suggestions').style.display = 'none';
+  state.isChatLoading = true;
+  document.getElementById('chat-send-btn').disabled = true;
+
+  state.chatHistory.push({ role:'user', content:q });
+  const typing = appendTypingIndicator();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: state.chatHistory
+      })
+    });
+    const data = await res.json();
+    const answer = data.content && data.content[0] ? data.content[0].text : 'The Guru is in deep samadhi. Please try again. 🙏';
+    typing.remove();
+    state.chatHistory.push({ role:'assistant', content: answer });
+    const sources = extractSources(answer);
+    appendAIMessage(answer, sources);
+    refreshSuggestedQs(q);
+  } catch(e) {
+    typing.remove();
+    appendAIMessage('The AI Guru is momentarily in deep meditation. Please ask your question again. 🙏', []);
+  }
+
+  state.isChatLoading = false;
+  document.getElementById('chat-send-btn').disabled = false;
+}
+
+function sendChatQ(q) {
+  document.getElementById('chat-input').value = q;
+  sendChat();
+}
+
+function goChat(q) {
+  showPage('chat');
+  if (state.chatMessageCount === 0) initChat();
+  setTimeout(() => sendChatQ(q), 150);
+}
+
+function clearChat() {
+  state.chatHistory = [];
+  state.chatMessageCount = 0;
+  const msgs = document.getElementById('chat-messages');
+  msgs.innerHTML = '';
+  initChat();
+  document.getElementById('chat-suggestions').style.display = 'flex';
+}
+
+function extractSources(text) {
+  const sources = [];
+  if (/bhagavad gita|bhagavadgita|gita/i.test(text)) sources.push('Bhagavad Gita');
+  if (/upanishad/i.test(text)) sources.push('Upanishads');
+  if (/rigveda|yajurveda|samaveda|atharvaveda|veda/i.test(text)) sources.push('Vedas');
+  if (/ramayana|rama/i.test(text)) sources.push('Ramayana');
+  if (/mahabharata|mahabharat/i.test(text)) sources.push('Mahabharata');
+  if (/purana/i.test(text)) sources.push('Puranas');
+  if (/yoga sutra|patanjali/i.test(text)) sources.push('Yoga Sutras');
+  if (/vedanta|shankara|shankaracharya/i.test(text)) sources.push('Vedanta');
+  return [...new Set(sources)].slice(0, 4);
+}
+
+function refreshSuggestedQs(lastQ) {
+  const all = [
+    'What are the four Purusharthas?','Explain the concept of Maya',
+    'What is the relationship between Atman and Brahman?','Explain the three gunas',
+    'What is Raja Yoga?','Tell me about Dharma in the Ramayana',
+    'What does Gita say about the eternal soul?','Explain Om (AUM)',
+    'What is the meaning of Namaste?','Explain Neti Neti',
+    'Who were the Saptarishis?','What is Sankhya philosophy?'
+  ];
+  const suggestions = all.filter(s => !s.toLowerCase().includes((lastQ || '').toLowerCase().slice(0,5))).slice(0,4);
+  const box = document.getElementById('chat-suggestions');
+  box.innerHTML = suggestions.map(s => `<button class="chat-suggestion-btn" onclick="sendChatQ('${escAttr(s)}')">${escHtml(s)}</button>`).join('');
+  box.style.display = 'flex';
+}
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+function showDashSection(name) {
+  ['overview','bookmarks','history','notes'].forEach(s => {
+    document.getElementById('dsec-' + s + '-content').classList.add('hidden');
+    document.getElementById('dsec-' + s).classList.remove('active');
+  });
+  document.getElementById('dsec-' + name + '-content').classList.remove('hidden');
+  document.getElementById('dsec-' + name).classList.add('active');
+}
+
+function refreshDashboard() {
+  document.getElementById('stat-searches').textContent = state.searchHistory.length;
+  document.getElementById('stat-bookmarks').textContent = state.bookmarks.length;
+  document.getElementById('stat-chats').textContent = Math.max(0, Math.floor(state.chatHistory.length / 2));
+
+  // Recent bookmarks on overview
+  const rb = document.getElementById('dash-recent-bookmarks');
+  if (state.bookmarks.length === 0) {
+    rb.innerHTML = '<div class="empty-state"><div class="empty-icon">🔗</div>No saved verses yet. Search and bookmark verses to see them here.</div>';
+  } else {
+    rb.innerHTML = '<div class="bookmarks-list">' + state.bookmarks.slice(0,3).map(b => `
+      <div class="bookmark-item">
+        <div class="bookmark-item-text">
+          <div class="bookmark-ref">${escHtml(b.verse.ref)}</div>
+          <div class="bookmark-sanskrit">${escHtml(b.verse.sanskrit.split('\n')[0])}</div>
+        </div>
+      </div>`).join('') + '</div>';
+  }
+
+  // Bookmarks tab
+  const bl = document.getElementById('dash-bookmarks-list');
+  if (state.bookmarks.length === 0) {
+    bl.innerHTML = '<div class="empty-state"><div class="empty-icon">🔖</div>No bookmarks yet. Save verses while searching.</div>';
+  } else {
+    bl.innerHTML = state.bookmarks.map((b, i) => `
+      <div class="bookmark-item">
+        <div class="bookmark-item-text">
+          <div class="bookmark-ref">${escHtml(b.verse.ref)}</div>
+          <div class="bookmark-sanskrit">${escHtml(b.verse.sanskrit.split('\n')[0])}</div>
+          <div style="font-size:12px;color:var(--text-faint);margin-top:4px;font-style:italic">${escHtml(b.verse.trans)}</div>
+        </div>
+        <button class="bookmark-remove" onclick="removeBookmark(${i})" title="Remove">✕</button>
+      </div>`).join('');
+  }
+
+  // History tab
+  const hl = document.getElementById('dash-history-list');
+  if (state.searchHistory.length === 0) {
+    hl.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div>No searches yet. Start exploring sacred texts.</div>';
+  } else {
+    hl.innerHTML = state.searchHistory.map(h => `
+      <div class="history-item" onclick="doSearch('${escAttr(h.query)}')">
+        <span class="history-icon">🔍</span>
+        <span class="history-query">${escHtml(h.query)}</span>
+        <span class="history-time">${h.time.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span>
+      </div>`).join('');
+  }
+
+  // Saved notes
+  const notesList = document.getElementById('saved-notes-list');
+  notesList.innerHTML = state.notes.map((n, i) => `
+    <div style="background:white;border:1px solid var(--border);border-radius:var(--radius-md);padding:14px">
+      <div style="font-size:13px;color:var(--text-body);line-height:1.7">${escHtml(n.text)}</div>
+      <div style="font-size:11px;color:var(--text-faint);margin-top:8px;font-family:'Inter',sans-serif">${n.time}</div>
+    </div>`).join('');
+}
+
+function removeBookmark(i) {
+  state.bookmarks.splice(i, 1);
+  refreshDashboard();
+  showToast('Bookmark removed');
+}
+
+function saveNote() {
+  const ta = document.getElementById('notes-textarea');
+  const text = ta.value.trim();
+  if (!text) return;
+  state.notes.unshift({ text, time: new Date().toLocaleString() });
+  ta.value = '';
+  refreshDashboard();
+  showToast('Note saved 📝');
+}
+
+/* ============================================================
+   CLAUDE API
+============================================================ */
+async function callClaude(prompt, callback) {
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: 'You are Jnana, an expert AI Guru in Indian scriptures, Sanskrit, Vedic philosophy, and ancient wisdom. Provide insightful, scholarly yet accessible explanations. Be accurate and respectful.',
+        messages: [{ role:'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    callback(data.content && data.content[0] ? data.content[0].text : 'Unable to generate AI response at this time.');
+  } catch(e) {
+    callback('AI Guru is momentarily unavailable. The knowledge of the Upanishads awaits you. Please try again. 🙏');
+  }
+}
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/'/g,"\\'").replace(/"/g,'&quot;');
+}
+function formatAIText(text) {
+  if (!text) return '';
+  return escHtml(text)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>')
+    .replace(/^/, '<p>').replace(/$/, '</p>');
+}
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+renderHome();
+renderLibrary();
+</script>
+</body>
+</html>
