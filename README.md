@@ -68,4 +68,4 @@ format, delete `sanskriti.db`, and re-run `python init_db.py`.
 
 ## Submitted BY
 Name : Harshada Ashok Patil
-Class : Tybca (B)
+Class : Tybca (C)
