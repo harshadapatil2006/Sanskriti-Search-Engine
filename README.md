@@ -65,3 +65,7 @@ Since `ui.html` is opened via `file://`, `flask-cors` is already enabled in `app
 Open `init_db.py`, add more tuples to the `SEED_DATA` list following the same
 `(title, category, source, sanskrit_text, transliteration, translation, explanation, tags)`
 format, delete `sanskriti.db`, and re-run `python init_db.py`.
+
+## Submitted BY
+Name : Harshada Ashok Patil
+Class : Tybca (B)
